@@ -1,0 +1,13 @@
+title: ESP32 Modbus Dashboard
+description: Web dashboard for monitoring and controlling ESP32 devices over MQTT
+theme: minima
+
+# GitHub Pages settings
+markdown: kramdown
+
+# Exclude files/folders from build
+exclude:
+  - README.md
+  - node_modules/
+  - package.json
+  - package-lock.json
