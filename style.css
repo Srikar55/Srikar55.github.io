@@ -5,89 +5,186 @@
 }
 
 body {
-    background: #000;
+    background: black;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     height: 100vh;
     overflow: hidden;
-    position: relative;
 }
 
-/* Animated Background */
+/* Background */
 
 .background {
     position: absolute;
     width: 100%;
     height: 100%;
+
     background:
-        radial-gradient(circle at 20% 20%, #333 0%, transparent 30%),
+        radial-gradient(circle at 20% 20%, #444 0%, transparent 30%),
         radial-gradient(circle at 80% 40%, #222 0%, transparent 35%),
-        radial-gradient(circle at 50% 80%, #444 0%, transparent 25%);
+        radial-gradient(circle at 50% 80%, #555 0%, transparent 25%);
+
     filter: blur(70px);
+
     animation: moveBackground 12s ease-in-out infinite alternate;
 }
 
 @keyframes moveBackground {
+
     from {
-        transform: scale(1) translate(0px, 0px);
+        transform: scale(1);
     }
+
     to {
-        transform: scale(1.2) translate(-30px, -20px);
+        transform: scale(1.2);
     }
 }
 
-/* Main Content */
-
 .container {
+
     position: relative;
     z-index: 2;
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
 
     height: 100vh;
+
     text-align: center;
 }
 
 h1 {
+
     font-size: 3rem;
-    margin-bottom: 15px;
+
+    margin-bottom: 10px;
+
     letter-spacing: 2px;
 }
 
 .subtitle {
+
     color: #b0b0b0;
-    margin-bottom: 40px;
-    font-size: 1.1rem;
+
+    margin-bottom: 30px;
 }
 
+/* MQTT Status */
+
+.status-container {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+.status-dot {
+
+    width: 15px;
+
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: red;
+
+    box-shadow: 0 0 10px red;
+}
+
+/* Message Box */
+
 .message-box {
-    width: 600px;
+
+    width: 650px;
+
     max-width: 90%;
 
-    background: rgba(40, 40, 40, 0.65);
+    min-height: 150px;
 
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(35,35,35,0.75);
 
     border-radius: 15px;
 
-    backdrop-filter: blur(15px);
+    padding: 25px;
 
-    padding: 30px;
+    backdrop-filter: blur(10px);
 
-    box-shadow:
-        0 0 20px rgba(255,255,255,0.05),
-        0 0 60px rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    margin-bottom: 25px;
 }
 
 .message-box h2 {
+
     margin-bottom: 15px;
-    color: #e0e0e0;
 }
 
 .message-box p {
-    color: #c0c0c0;
-    line-height: 1.6;
+
+    color: #d0d0d0;
+
+    line-height: 1.5;
+}
+
+/* Input Area */
+
+.input-section {
+
+    width: 650px;
+
+    max-width: 90%;
+
+    display: flex;
+
+    gap: 10px;
+}
+
+input {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    font-size: 1rem;
+
+    outline: none;
+}
+
+button {
+
+    padding: 14px 28px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background: #4d4d4d;
+
+    color: white;
+
+    font-size: 1rem;
+
+    transition: 0.3s;
+}
+
+button:hover {
+
+    background: #6b6b6b;
 }
