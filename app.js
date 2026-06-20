@@ -13,34 +13,50 @@ const statusText =
 const statusDot =
     document.getElementById("statusDot");
 
-const messageBox =
-    document.getElementById("message");
-
 const sendBtn =
     document.getElementById("sendBtn");
+
+const clearBtn =
+    document.getElementById("clearBtn");
 
 const commandInput =
     document.getElementById("commandInput");
 
-console.log("Connecting...");
+const messageLog =
+    document.getElementById("messageLog");
 
 const client = mqtt.connect(brokerUrl);
 
+function addLog(message)
+{
+    const time =
+        new Date().toLocaleTimeString();
+
+    const entry =
+        document.createElement("div");
+
+    entry.className = "log-entry";
+
+    entry.innerHTML =
+        `[${time}] ${message}`;
+
+    messageLog.prepend(entry);
+}
+
 client.on("connect", () => {
 
-    console.log("Connected");
+    statusText.innerText =
+        "Connected";
 
-    statusText.innerText = "Connected";
-
-    statusDot.style.background = "lime";
+    statusDot.style.background =
+        "lime";
 
     statusDot.style.boxShadow =
         "0 0 12px lime";
 
     client.subscribe(statusTopic);
 
-    messageBox.innerText =
-        "Connected to MQTT Broker";
+    addLog("Connected to MQTT Broker");
 });
 
 client.on("message",
@@ -49,17 +65,8 @@ client.on("message",
         const msg =
             payload.toString();
 
-        console.log(msg);
-
-        messageBox.innerText = msg;
+        addLog(msg);
     });
-
-client.on("error", (err) => {
-
-    console.error(err);
-
-    statusText.innerText = "Error";
-});
 
 client.on("offline", () => {
 
@@ -71,23 +78,14 @@ client.on("offline", () => {
 
     statusDot.style.boxShadow =
         "0 0 12px red";
+
+    addLog("Disconnected");
 });
 
-sendBtn.addEventListener(
-    "click",
-    sendMessage
-);
+client.on("error", (err) => {
 
-commandInput.addEventListener(
-    "keypress",
-    function(event) {
-
-        if(event.key === "Enter")
-        {
-            sendMessage();
-        }
-    }
-);
+    addLog("ERROR: " + err.message);
+});
 
 function sendMessage()
 {
@@ -102,10 +100,31 @@ function sendMessage()
         message
     );
 
-    console.log(
-        "Sent:",
-        message
-    );
+    addLog("Sent → " + message);
 
     commandInput.value = "";
 }
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
+commandInput.addEventListener(
+    "keypress",
+    (event) => {
+
+        if(event.key === "Enter")
+        {
+            sendMessage();
+        }
+    }
+);
+
+clearBtn.addEventListener(
+    "click",
+    () => {
+
+        messageLog.innerHTML = "";
+    }
+);
