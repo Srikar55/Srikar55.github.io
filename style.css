@@ -188,3 +188,39 @@ button:hover {
 
     background: #6b6b6b;
 }
+
+.message-log {
+
+    height: 250px;
+
+    overflow-y: auto;
+
+    text-align: left;
+
+    padding: 10px;
+
+    background: rgba(0,0,0,0.25);
+
+    border-radius: 10px;
+}
+
+.log-entry {
+
+    padding: 6px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+
+    color: #d0d0d0;
+
+    font-size: 0.95rem;
+}
+
+#clearBtn {
+
+    background: #7a3030;
+}
+
+#clearBtn:hover {
+
+    background: #a04141;
+}
