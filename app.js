@@ -54,18 +54,53 @@ client.on("connect", () => {
     statusDot.style.boxShadow =
         "0 0 12px lime";
 
-    client.subscribe(statusTopic);
+client.subscribe(statusTopic, (err) => {
 
-    addLog("Connected to MQTT Broker");
+    if (err)
+    {
+        console.error(err);
+
+        addLog("Subscribe Failed");
+    }
+    else
+    {
+        console.log(
+            "Subscribed to:",
+            statusTopic
+        );
+
+        addLog(
+            "Subscribed to " +
+            statusTopic
+        );
+    }
+});
+
+addLog("Connected to MQTT Broker");
 });
 
 client.on("message",
     (topic, payload) => {
 
-        const msg =
-            payload.toString();
+        console.log(
+            "Message received"
+        );
 
-        addLog(msg);
+        console.log(
+            "Topic:",
+            topic
+        );
+
+        console.log(
+            "Payload:",
+            payload.toString()
+        );
+
+        addLog(
+            topic +
+            " -> " +
+            payload.toString()
+        );
     });
 
 client.on("offline", () => {
